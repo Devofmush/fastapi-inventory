@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservation</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <h1>Reserve an Item</h1>
+    <form action="/reservation" method="post">
+        <label for="property_code">Property Code:</label>
+        <input type="text" name="property_code" required>
+
+        <label for="location">Location:</label>
+        <input type="text" name="location" required>
+
+        <label for="reason">Reason:</label>
+        <input type="text" name="reason" required>
+
+        <button type="submit">Reserve Item</button>
+    </form>
+
+    <div style="margin-top: 20px;">
+        <h2>Reserved Items</h2>
+        <ul>
+            {% for item in reserved_items %}
+                <li>{{ item.property_code }} - {{ item.location }} - {{ item.reason }} - {{ item.date_reserved }} - {{ item.reserved_out_date }}</li>
+            {% else %}
+                <li>No reserved items found.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Outgoing Items</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <h1>Outgoing Items</h1>
+
+    <form action="/outgoing-items" method="post">
+        <label for="item_id">Select Item to Mark as Outgoing:</label>
+        <select name="item_id" id="item_id" required>
+            {% if items_to_mark_out %}
+                {% for item in items_to_mark_out %}
+                    <option value="{{ item._id }}">{{ item.name }} - {{ item.serial }} - {{ item.location }}</option>
+                {% endfor %}
+            {% else %}
+                <option disabled>No items available</option>
+            {% endif %}
+        </select>
+        <button type="submit">Mark as Outgoing</button>
+    </form>
+
+    <div style="display: flex; justify-content: space-between;">
+        <!-- Left Pane: Outgoing Items List -->
+        <div style="width: 48%;">
+            <h2>Items Out ({{ outgoing_items|length }})</h2>
+            <ul>
+                {% for item in outgoing_items %}
+                    <li>{{ item.name }} - {{ item.serial }} - {{ item.location }} - {{ item.date_time }}</li>
+                {% else %}
+                    <li>No items found.</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Right Pane: Table of All Items with Status and Dates -->
+        <div style="width: 48%;">
+            <h2>All Items</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Serial</th>
+                        <th>Location</th>
+                        <th>Status</th>
+                        <th>Added Date</th>
+                        <th>Outgoing Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in all_items %}
+                        <tr>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.serial }}</td>
+                            <td>{{ item.location }}</td>
+                            <td>{{ item.status }}</td>
+                            <td>{{ item.date_time }}</td>
+                            <td>{{ item.outgoing_date if item.status == 'OUT' else 'N/A' }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!-- app/templates/add_item.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Item</title>
+</head>
+<body>
+    <h2>Add Item</h2>
+    <form action="/add-item" method="post">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" required><br>
+
+        <label for="serial">Serial:</label>
+        <input type="text" name="serial" id="serial" required><br>
+
+        <label for="location">Location:</label>
+        <input type="text" name="location" id="location" required><br>
+
+        <button type="submit">Add Item</button>
+    </form>
+</body>
+</html>
